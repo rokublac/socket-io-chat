@@ -1,6 +1,9 @@
 // jshint esversion:6
+
 // Make connection
-const socket = io.connect('http://localhost:3000'); 
+// grab the host of the client - this will allow other machines on the localhost network to access the chat
+const host = window.location.host;
+const socket = io.connect(`http://${host}`); 
 
 // query DOM
 let message  = document.getElementById('message'),
@@ -17,7 +20,16 @@ button.addEventListener('click', () => {
 	});
 });
 
-message.addEventListener('keypress', () => {
+// 
+message.addEventListener('keypress', (e) => {
+	// on enter, sumbit chat message
+	if(e.keyCode === 13){
+		socket.emit('chat', {
+		message: message.value,
+		handle: handle.value
+		});	
+	}
+	// 'is typing...'
 	socket.emit('typing', handle.value);
 });
 
@@ -41,7 +53,7 @@ socket.on('typing', (data) => {
 socket.on('no-typing', () => {
 	// set delay so the 'is typing...' is not flashing
 	const emptyFeedback = () => feedback.innerHTML = "";
-	setTimeout(emptyFeedback, 1900);
+	setTimeout(emptyFeedback, 2500);
 });
 
 

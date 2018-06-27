@@ -12,7 +12,7 @@ h2{
 }
 
 #chat-box{
-    max-width: 600px;
+    max-width: 40vw;
     margin: 60px auto;
     box-shadow: 1px 3px 5px rgba(0,0,0,0.2);
     border-radius: 2px;
@@ -20,7 +20,7 @@ h2{
 
 #chat-window{
     top: 50px;
-    height: 300px;
+    height: 60vh;
     overflow: auto;
     background: #3d2861;
 }
